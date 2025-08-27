@@ -1,3 +1,4 @@
+---
 title: Template Final Assignment
 emoji: 🕵🏻‍♂️
 colorFrom: indigo
@@ -8,6 +9,7 @@ app_file: app.py
 pinned: false
 hf_oauth: true
 hf_oauth_expiration_minutes: 480
+---
 
 # HuggingFace Agents course
 [Agent Course final project](https://huggingface.co/learn/agents-course/en/unit4/hands-on)
