@@ -1,0 +1,68 @@
+[project]
+name = "hf_agent_cert"
+version = "0.1.0"
+description = "Hugging Face Agent Certification Project"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "gradio[oauth]",
+    "requests",
+    "google-generativeai", # Gemini API - PRIMARY
+    "langgraph", # Agent orchestration
+    "langchain", # Core framework
+    "langchain-community", # Essential loaders only
+    "langchain-google-genai", # Gemini integration
+    "chromadb", # Vector store for context
+    "sympy", # Advanced math
+    "pillow", # Image processing ?????
+    "wikipedia-api", # Wikipedia integration ?????
+    "arxiv", # ArXiv integration ?????
+    "langsmith>=0.4.16",
+    "huggingface-hub>=0.34.4",
+    "python-dotenv>=1.0.1",
+    "wikipedia>=1.4.0",
+    "google-genai>=1.31.0",
+    "pymupdf>=1.26.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "isort",
+    "flake8",
+    "mypy",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+    "black",
+    "isort", 
+    "flake8",
+    "mypy",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
