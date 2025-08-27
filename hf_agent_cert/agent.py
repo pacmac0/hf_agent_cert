@@ -191,7 +191,7 @@ class Agent:
             # Run the graph
             result = self.compiled_graph.invoke(initial_state, config={"recursion_limit": self.config.recursion_limit})
             
-            return result.get("final_answer", "")
+            return str(result.get("final_answer", ""))
             
         except Exception as e:
             logger.error(f"Error processing question: {e}", exc_info=True)
