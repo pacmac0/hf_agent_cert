@@ -6,7 +6,7 @@ authors = [
     {name = "Your Name", email = "your.email@example.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
     "gradio[oauth]",
     "requests",
@@ -20,12 +20,11 @@ dependencies = [
     "pillow", # Image processing ?????
     "wikipedia-api", # Wikipedia integration ?????
     "arxiv", # ArXiv integration ?????
-    "langsmith>=0.4.16",
-    "huggingface-hub>=0.34.4",
-    "python-dotenv>=1.0.1",
-    "wikipedia>=1.4.0",
-    "google-genai>=1.31.0",
-    "pymupdf>=1.26.4",
+    "langsmith",
+    "python-dotenv",
+    "wikipedia",
+    "google-genai",
+    "pymupdf",
 ]
 
 [project.optional-dependencies]
@@ -62,7 +61,7 @@ profile = "black"
 line_length = 88
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true

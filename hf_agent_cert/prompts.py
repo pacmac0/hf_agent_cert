@@ -29,7 +29,9 @@ class Prompts:
 
         6. Final Answer
         Provide the final answer in the format asked for by the task.
+    """
 
+    TASKS_EXAMPLES = """
     Example Task-1: "What is the capital of France?"
     
     Thought: I'll use web_search tool to find this information
@@ -41,7 +43,9 @@ class Prompts:
     Thought: I'll use url_content tool to find this information. I should not assume information from Titel, description etc. and extract the information from the video.
     Action: url_content(query="https://www.youtube.com/watch?v=L1vXCYZAYYM")
     Final Answer: Otter
+
     """
+
     @staticmethod
     def get_system_prompt() -> str:
         """Get the system prompt."""
