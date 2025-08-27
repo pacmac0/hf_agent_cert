@@ -14,6 +14,8 @@ from .multimodal_content_handler import MultiModalContentHandler, URLDetector
 from .tools import CUSTOM_TOOLS, GOOGLE_GEMINI_TOOLS
 from .config import Config
 
+from tenacity import retry, stop_after_attempt, wait_exponential
+
 # Configure logging
 logger = logging.getLogger(__name__)
 
@@ -113,15 +115,12 @@ class Agent:
             "detected_urls": detected_urls
         }
     
-    @traceable(name="call_gemini_agent", metadata={"model": "gemini", "provider": "google"})
-    def _call_agent(self, state: AgentState) -> AgentState:
-        """Call the Gemini model."""
-        logger.debug("Calling Gemini model")
-        
-        # Call the Gemini model
-        response = self.genai_client.models.generate_content(
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=10))
+    def _generate_content_with_retry(self, contents: List[types.Part]) -> types.GenerateContentResponse:
+        """Generate content with simple retry logic."""
+        return self.genai_client.models.generate_content(
             model=self.model_name,
-            contents=state.get("multimodal_content_parts"),
+            contents=contents,
             config=types.GenerateContentConfig(
                 system_instruction = Prompts.get_system_prompt(),
                 tools = GOOGLE_GEMINI_TOOLS,
@@ -133,6 +132,14 @@ class Agent:
                 ),
             )
         )
+
+    @traceable(name="call_gemini_agent", metadata={"model": "gemini", "provider": "google"})
+    def _call_agent(self, state: AgentState) -> AgentState:
+        """Call the Gemini model."""
+        logger.debug("Calling Gemini model")
+        
+        # Call the Gemini model with retry logic
+        response = self._generate_content_with_retry(state.get("multimodal_content_parts"))
 
         return {"final_answer": response.text}
 

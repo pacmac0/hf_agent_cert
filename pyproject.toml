@@ -25,6 +25,7 @@ dependencies = [
     "wikipedia",
     "google-genai",
     "pymupdf",
+    "tenacity",
 ]
 
 [project.optional-dependencies]
