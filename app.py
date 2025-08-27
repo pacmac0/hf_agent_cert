@@ -3,6 +3,7 @@ import gradio as gr
 import requests
 import inspect
 import pandas as pd
+import time
 
 from hf_agent_cert.agent import Agent as BasicAgent
 
@@ -44,6 +45,7 @@ def run_and_submit_all( profile: gr.OAuthProfile | None):
     print(f"Fetching questions from: {questions_url}")
     try:
         response = requests.get(questions_url, timeout=15)
+        time.sleep(1)
         response.raise_for_status()
         questions_data = response.json()
         if not questions_data:
